@@ -5,6 +5,7 @@ const mrf = new Mrf(srf);
 const config = require('config');
 const logger = require('pino')(config.get('logging'));
 const CallSession = require('./lib/call-session');
+const sendInfo = require('./lib/actions/sendInfo');
 
 /* connect to the drachtio server */
 srf.connect(config.get('drachtio'))
@@ -15,7 +16,10 @@ srf.connect(config.get('drachtio'))
 srf.invite((req, res) => {
   const callSession = new CallSession(logger, mrf, req, res);
   callSession
-    .on('intent', (intent) => logger.debug(intent, 'received intent'))
+    .on('intent', (intent) => {
+        logger.debug(intent, 'received intent');
+        sendInfo(req.msg,intent);
+    })
     .on('transcription', (transcript) => logger.debug(transcript, 'received transcription'))
     .on('end_of_utterance', (evt) => logger.debug(evt, 'received end_of_utterance'))
     .on('audio', (evt) => logger.info(`received audio file ${evt.path}`))
