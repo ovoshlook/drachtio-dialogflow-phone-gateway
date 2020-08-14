@@ -17,8 +17,8 @@ srf.invite((req, res) => {
   const callSession = new CallSession(logger, mrf, req, res);
   callSession
     .on('intent', (intent) => {
-        logger.debug(intent, 'received intent');
-        sendInfo(req.msg,intent);
+        //logger.debug(intent, 'received intent');
+        sendInfo(req.msg,intent.response_id);
     })
     .on('transcription', (transcript) => logger.debug(transcript, 'received transcription'))
     .on('end_of_utterance', (evt) => logger.debug(evt, 'received end_of_utterance'))
