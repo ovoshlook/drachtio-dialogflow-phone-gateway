@@ -15,9 +15,12 @@ srf.connect(config.get('drachtio'))
 /* we want to handle incoming invites */
 srf.invite((req, res) => {
   const callSession = new CallSession(logger, mrf, req, res);
+  let intentsNumber = 0;
   callSession
     .on('intent', (intent) => {
-        //logger.debug(intent, 'received intent');
+        console.log(intent);
+        intensNumber++;
+        if (intentsNumber < 2)
         sendInfo(req.msg,intent.response_id);
     })
     .on('transcription', (transcript) => logger.debug(transcript, 'received transcription'))
