@@ -19,7 +19,7 @@ srf.invite((req, res) => {
   callSession
     .on('intent', (intent) => {
         console.log(intent);
-        intensNumber++;
+        intentsNumber++;
         if (intentsNumber < 2)
         sendInfo(req.msg,intent.response_id);
     })
