@@ -18,10 +18,9 @@ srf.invite((req, res) => {
   let intentsNumber = 0;
   callSession
     .on('intent', (intent) => {
-        console.log(intent);
         intentsNumber++;
-        if (intentsNumber < 2)
-        sendInfo(req.msg,intent.response_id);
+        console.log(req);
+        if (intentsNumber < 2) sendInfo(req.msg,intent.response_id);
     })
     .on('transcription', (transcript) => logger.debug(transcript, 'received transcription'))
     .on('end_of_utterance', (evt) => logger.debug(evt, 'received end_of_utterance'))
