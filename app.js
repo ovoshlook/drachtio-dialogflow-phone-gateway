@@ -13,10 +13,7 @@ srf.connect(config.get('drachtio'))
   .on('error', (err) => logger.info(err, 'Error connecting'));
 
 /* we want to handle incoming invites */
-srf.invite((req, res) => {
-  
-  console.log("--------",res.statusCode);
-  
+srf.invite((req, res) => {  
   const callSession = new CallSession(logger, mrf, req, res);
   let intentsNumber = 0;
   callSession
